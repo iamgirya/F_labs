@@ -67,11 +67,18 @@ let main argv =
     0
 *)
 
+(* 4
+let f4 n f init = 
+    let mutable init = 0
+    for i in n .. -1 ..1 do
+        let isDel = ( float (n/i) = ( (float n) / (float i) ) )
+        init <- if (isDel) then f init i else init
+    init
+
 
 [<EntryPoint>]
 let main argv =
     let num = System.Convert.ToInt32(System.Console.ReadLine())
-    printfn "%s" ((maxn num).ToString())
-    printfn "%s" ((minn num).ToString())
-    printfn "%s" ((proiz num).ToString())
+    printfn "%i" (f4 num (fun x y -> x+y) 0)
     0
+*)
