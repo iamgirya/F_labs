@@ -181,6 +181,27 @@ let main argv =
     0
     *)
 
+let rec nod a b =
+    if (a > 0 && b > 0)
+    then if (a > b)
+            then nod (a%b) b
+            else nod a (b%a)
+    else if (a = 0) 
+         then b
+         else a  
+
+let rec mutSimp init condition func nownum num= 
+    if nownum <= 0 then init
+    else 
+        let isMP = ((nod nownum num) = 1)
+        if (isMP && condition (nownum)) 
+        then mutSimp (func init nownum) condition func (nownum-1) num
+        else mutSimp init condition func (nownum-1) num
+
+let constTrue a = true
+let count a b = a+1
+let metod1 num = mutSimp 0 constTrue count num num
+
 let rec digOfNum init condition func num =
     if num = 0 then init
     else 
@@ -190,7 +211,6 @@ let rec digOfNum init condition func num =
 
 let div3 a = (0 = (a%3))
 let sum a b = a+b
-
 let metod2 num = digOfNum 0 div3 sum num
 
 [<EntryPoint>]
