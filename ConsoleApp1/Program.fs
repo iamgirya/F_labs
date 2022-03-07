@@ -82,3 +82,29 @@ let main argv =
     printfn "%i" (f4 num (fun x y -> x+y) 0)
     0
 *)
+
+(*  5
+let rec nod a b =
+    if (a > 0 && b > 0)
+    then if (a > b)
+            then nod (a%b) b
+            else nod a (b%a)
+    else if (a = 0) 
+         then b
+         else a
+    
+
+let f5 n f init = 
+    let mutable init = 0
+    for i in n .. -1 ..2 do
+        let isDel = ((nod n i) = 1)
+        init <- if (isDel) then f init i else init
+    init
+
+
+[<EntryPoint>]
+let main argv =
+    let num = System.Convert.ToInt32(System.Console.ReadLine())
+    printfn "%i" (f5 num (fun x y -> x+y) 0)
+    0
+    *)
