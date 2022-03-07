@@ -95,8 +95,8 @@ let rec nod a b =
     
 
 let f5 n f init = 
-    let mutable init = 0
-    for i in n .. -1 ..2 do
+    let mutable init = init
+    for i in n .. -1 ..1 do
         let isDel = ((nod n i) = 1)
         init <- if (isDel) then f init i else init
     init
@@ -108,3 +108,41 @@ let main argv =
     printfn "%i" (f5 num (fun x y -> x+y) 0)
     0
     *)
+
+
+
+
+
+(*  6
+let rec nod a b =
+    if (a > 0 && b > 0)
+    then if (a > b)
+            then nod (a%b) b
+            else nod a (b%a)
+    else if (a = 0) 
+         then b
+         else a
+    
+
+let f5 n f init = 
+    let mutable init = init
+    for i in n .. -1 ..1 do
+        let isDel = ((nod n i) = 1)
+        init <- if (isDel) then f init i else init
+    init
+
+let eilerFunc n =
+    f5 n (fun x y -> x+1) 0
+
+[<EntryPoint>]
+let main argv =
+    let num = 10
+    printfn "%b" (4 = eilerFunc num)
+    printfn "%b" (9+7+3+1 = f5 num (fun x y -> x+y) 0)
+    printfn "%b" (9*7*3*1 = f5 num (fun x y -> x*y) 1)
+    let num = 11
+    printfn "%b" (10 = eilerFunc num)
+    printfn "%b" (1+2+3+4+5+6+7+8+9+10 = f5 num (fun x y -> x+y) 0)
+    printfn "%b" (1*2*3*4*5*6*7*8*9*10 = f5 num (fun x y -> x*y) 1)
+    0
+*)
