@@ -1,8 +1,21 @@
-﻿// Learn more about F# at http://fsharp.org
+﻿open System
 
-open System
+
+let z1 ovt =
+    if ovt = "F#" || ovt = "Prolog"
+        then "Сударь, Вы - подлиза."
+        else "Не знаю такого."
+
+
 
 [<EntryPoint>]
 let main argv =
-    printfn "Hello World from F#!"
-    0 // return an integer exit code
+
+(* задача 1
+    printfn "Какой твой язык любимый?"
+    let s = System.Console.ReadLine()
+    printfn "%s" (z1 s)
+*)
+
+
+    0
