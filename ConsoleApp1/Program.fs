@@ -111,8 +111,6 @@ let main argv =
 
 
 
-
-
 (*  6
 let rec nod a b =
     if (a > 0 && b > 0)
@@ -146,3 +144,50 @@ let main argv =
     printfn "%b" (1*2*3*4*5*6*7*8*9*10 = f5 num (fun x y -> x*y) 1)
     0
 *)
+
+
+(*  7
+let rec nod a b =
+    if (a > 0 && b > 0)
+    then if (a > b)
+            then nod (a%b) b
+            else nod a (b%a)
+    else if (a = 0) 
+         then b
+         else a  
+
+let f5 n f init condition = 
+    let mutable init = init
+    for i in n .. -1 ..1 do
+        let isVP = ((nod n i) = 1)
+        init <- if (isVP && condition i) then f init i else init
+    init
+
+let f4 n f init condition = 
+    let mutable init = 0
+    for i in n .. -1 ..1 do
+        let isDel = ( float (n/i) = ( (float n) / (float i) ) )
+        init <- if (isDel && condition i) then f init i else init
+    init
+
+[<EntryPoint>]
+let main argv =
+    let num = 10
+    printfn "%b" (9+7 = f5 num (fun x y -> x+y) 0 (fun x -> x > 5))
+    printfn "%b" (3*1 = f5 num (fun x y -> x*y) 1 (fun x -> x < 5))
+    let num = 11
+    printfn "%b" (1+3+5+7+9 = f5 num (fun x y -> x+y) 0 (fun x -> x%2 = 1))
+    printfn "%b" (2*4*6*8*10 = f5 num (fun x y -> x*y) 1 (fun x -> x%2 = 0))
+    0
+    *)
+
+
+[<EntryPoint>]
+let main argv =
+    let num = 10
+    printfn "%b" (9+7 = f5 num (fun x y -> x+y) 0 (fun x -> x > 5))
+    printfn "%b" (3*1 = f5 num (fun x y -> x*y) 1 (fun x -> x < 5))
+    let num = 11
+    printfn "%b" (1+3+5+7+9 = f5 num (fun x y -> x+y) 0 (fun x -> x%2 = 1))
+    printfn "%b" (2*4*6*8*10 = f5 num (fun x y -> x*y) 1 (fun x -> x%2 = 0))
+    0
