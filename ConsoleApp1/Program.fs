@@ -18,19 +18,10 @@ let main argv =
 (*  2
 [<EntryPoint>]
 let main argv =
-    //суперпозиция
     printfn "Какой твой язык любимый?"
-    let ifa ovt =if (ovt = "F#" || ovt = "Prolog") then "Сударь, Вы - подлиза." else "Не знаю такого."
-    ( ifa  >> printfn "%s")  (System.Console.ReadLine())   
-
-    //каррирование
-    printfn "Какой твой язык любимый?"
-    let for_true = "Сударь, Вы - подлиза."
-    let for_false = "Не знаю такого."
-    let ifa ovt t f =if (ovt = "F#" || ovt = "Prolog") then t else f
-    let redy = ifa (System.Console.ReadLine())
-    printfn "%s" (redy for_true for_false)
-
+    let bestLang ovt = (ovt = "F#" || ovt = "Prolog")
+    let ifa condition ovt = if (condition ovt) then "Сударь, Вы - подлиза." else "Не знаю такого."
+    System.Console.ReadLine() |> ifa bestLang |> printfn "%s"
     0
 *)
 
@@ -244,5 +235,75 @@ let main argv =
     printfn "%b" (3+6 = metod2 num)
     let num = 12
     printfn "%b" (3 = metod3 num)
+    0
+*)
+
+(* 10
+let rec nod a b =
+    if (a > 0 && b > 0)
+    then if (a > b)
+            then nod (a%b) b
+            else nod a (b%a)
+    else if (a = 0) 
+         then b
+         else a  
+
+let isMS (a, b) = ((nod a b) = 1)
+let isDiv (a,b) = ( float (a/b) = ( (float a) / (float b) ) )
+let constTrue a = true
+let count a b = a+1
+let div3 a = (0 = (a%3))
+let sum a b = a+b
+
+let rec mutSimp init condition func nownum num= 
+    if nownum <= 0 then init
+    else 
+        if (isMS (nownum, num) && condition (nownum)) 
+        then mutSimp (func init nownum) condition func (nownum-1) num
+        else mutSimp init condition func (nownum-1) num
+
+
+let rec digOfNum init condition func num =
+    if num = 0 then init
+    else 
+        if (condition (num%10)) 
+        then digOfNum (func init (num%10)) condition func (num/10)
+        else digOfNum init condition func (num/10)
+
+let rec divOfNum init condition func nownum num= 
+    if nownum <= 0 then init
+    else 
+        if (isDiv (num,nownum)  && condition (nownum)) 
+        then divOfNum (func init nownum) condition func (nownum-1) num
+        else divOfNum init condition func (nownum-1) num
+
+let countOfMP (div,count) dig = 
+    if (isMS(div, dig)) then (div,count+1) 
+    else (div,count)
+
+let mostMPWithDigs (num, oldDiv, oldCount) div = 
+    let countOfdiv = snd (digOfNum (div,0) constTrue countOfMP num)
+    if (countOfdiv > oldCount) then (num, div, countOfdiv)
+    else (num, oldDiv,oldCount)
+
+
+let metod1 num = mutSimp 0 constTrue count num num
+let metod2 num = digOfNum 0 div3 sum num
+let metod3 num = 
+    let (_,div,_) = (divOfNum (num, 0, 0) constTrue mostMPWithDigs num num)
+    div
+
+
+let multimetod num =
+    if (num = 1)
+    then metod1
+    else if (num = 2)
+    then metod2
+    else metod3
+
+[<EntryPoint>]
+let main argv =
+    let input = (System.Convert.ToInt32(System.Console.ReadLine()), System.Convert.ToInt32(System.Console.ReadLine()))
+    snd input |> (fst input |> multimetod) |> printfn "%i"
     0
 *)
