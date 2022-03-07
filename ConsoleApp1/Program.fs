@@ -181,6 +181,17 @@ let main argv =
     0
     *)
 
+let rec digOfNum init condition func num =
+    if num = 0 then init
+    else 
+        if (condition (num%10)) 
+        then digOfNum (func init (num%10)) condition func (num/10)
+        else digOfNum init condition func (num/10)
+
+let div3 a = (0 = (a%3))
+let sum a b = a+b
+
+let metod2 num = digOfNum 0 div3 sum num
 
 [<EntryPoint>]
 let main argv =
