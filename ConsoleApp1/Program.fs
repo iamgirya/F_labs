@@ -193,14 +193,15 @@ let rec nod a b =
 let rec mutSimp init condition func nownum num= 
     if nownum <= 0 then init
     else 
-        let isMP = ((nod nownum num) = 1)
-        if (isMP && condition (nownum)) 
+        let isMS = ((nod nownum num) = 1)
+        if (isMS && condition (nownum)) 
         then mutSimp (func init nownum) condition func (nownum-1) num
         else mutSimp init condition func (nownum-1) num
 
 let constTrue a = true
 let count a b = a+1
 let metod1 num = mutSimp 0 constTrue count num num
+
 
 let rec digOfNum init condition func num =
     if num = 0 then init
@@ -212,6 +213,28 @@ let rec digOfNum init condition func num =
 let div3 a = (0 = (a%3))
 let sum a b = a+b
 let metod2 num = digOfNum 0 div3 sum num
+
+
+let rec divOfNum init condition func nownum num= 
+    if nownum <= 0 then init
+    else 
+        let isDiv = ( float (num/nownum) = ( (float num) / (float nownum) ) )
+        if (isDiv && condition (nownum)) 
+        then divOfNum (func init nownum) condition func (nownum-1) num
+        else divOfNum init condition func (nownum-1) num
+
+
+let isMS (a, b) = ((nod a b) = 1)
+let countOfMP (div,count) dig = if (isMS(div, dig)) then (div,count+1) else (div,count)
+
+let mostMPWithDigs (num, oldDiv, oldCount) div = 
+    let countOfdiv = snd (digOfNum (div,0) constTrue countOfMP num)
+    if (countOfdiv > oldCount) then (num, div, countOfdiv)
+    else (num, oldDiv,oldCount)
+
+let metod3 num = 
+    let (_,div,_) = (divOfNum (num, 0, 0) constTrue mostMPWithDigs num num)
+    div
 
 [<EntryPoint>]
 let main argv =
