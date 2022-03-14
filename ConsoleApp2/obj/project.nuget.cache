@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "uGBN5Qhs1rcbQm3G4klRWK/vgiJN+DPv8H6flOdyGZa3UEYHlpE0S//NQMqeILnD5QZ/6xE8T0rBB3aYvERWVg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\danek\\Desktop\\Лямбда\\Лабы\\F_labs\\ConsoleApp2\\ConsoleApp2.fsproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\danek\\.nuget\\packages\\fsharp.core\\5.0.0\\fsharp.core.5.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

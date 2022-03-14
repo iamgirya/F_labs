@@ -27,20 +27,19 @@ let main argv =
 
 
 (* 3
+//хвостовая рекурсия
 let rec recmaxn (n, ans) =
     if n = 0 then ans
     else 
-        let n1 = n/10
-        if (n%10 > ans) then recmaxn (n1, (n%10))
-        else recmaxn (n1, ans)
-
+        if (n%10 > ans) then recmaxn ((n/10), (n%10))
+        else recmaxn ((n/10), ans)
+//хвостовая рекурсия
 let rec recminn (n, ans) =
     if n = 0 then ans
-    else 
-        let n1 = n/10
-        if (n%10 < ans) then recminn (n1, n%10)
-        else recminn (n1, ans)    
-
+    else
+        if (n%10 < ans) then recminn ((n/10), n%10)
+        else recminn ((n/10), ans)    
+// рекурсия вверх
 let rec proiz n =
     if n = 0 then 1
     else 
@@ -59,13 +58,14 @@ let main argv =
 *)
 
 (* 4
-let f4 n f init = 
-    let mutable init = 0
-    for i in n .. -1 ..1 do
-        let isDel = ( float (n/i) = ( (float n) / (float i) ) )
-        init <- if (isDel) then f init i else init
-    init
+let rec realf4 n f init nown =
+    if nown = 0 then init
+    elif ((n % nown) = 0)
+    then realf4 n f (f init nown) (nown-1)
+    else realf4 n f init (nown-1)
 
+let f4 n (f : int -> int -> int) init = 
+    realf4 n f init n
 
 [<EntryPoint>]
 let main argv =
@@ -74,7 +74,7 @@ let main argv =
     0
 *)
 
-(*  5
+(* 5
 let rec nod a b =
     if (a > 0 && b > 0)
     then if (a > b)
@@ -84,14 +84,14 @@ let rec nod a b =
          then b
          else a
     
+let rec realf5 n f init nown =
+    if (nown = 0) then init
+    elif ((nod n nown) = 1) 
+    then realf5 n f (f init nown) (nown-1)
+    else realf5 n f init (nown-1)
 
 let f5 n f init = 
-    let mutable init = init
-    for i in n .. -1 ..1 do
-        let isDel = ((nod n i) = 1)
-        init <- if (isDel) then f init i else init
-    init
-
+    realf5 n f init (n-1)
 
 [<EntryPoint>]
 let main argv =
@@ -113,12 +113,14 @@ let rec nod a b =
          else a
     
 
+let rec realf5 n f init nown =
+    if (nown = 0) then init
+    elif ((nod n nown) = 1) 
+    then realf5 n f (f init nown) (nown-1)
+    else realf5 n f init (nown-1)
+
 let f5 n f init = 
-    let mutable init = init
-    for i in n .. -1 ..1 do
-        let isDel = ((nod n i) = 1)
-        init <- if (isDel) then f init i else init
-    init
+    realf5 n f init (n-1)
 
 let eilerFunc n =
     f5 n (fun x y -> x+1) 0
@@ -136,8 +138,7 @@ let main argv =
     0
 *)
 
-
-(*  7
+(* 7
 let rec nod a b =
     if (a > 0 && b > 0)
     then if (a > b)
@@ -147,19 +148,26 @@ let rec nod a b =
          then b
          else a  
 
-let f5 n f init condition = 
-    let mutable init = init
-    for i in n .. -1 ..1 do
-        let isVP = ((nod n i) = 1)
-        init <- if (isVP && condition i) then f init i else init
-    init
 
-let f4 n f init condition = 
-    let mutable init = 0
-    for i in n .. -1 ..1 do
-        let isDel = ( float (n/i) = ( (float n) / (float i) ) )
-        init <- if (isDel && condition i) then f init i else init
-    init
+let rec realf5 n f init nown condition =
+    if (nown = 0) then init
+    elif (((nod n nown) = 1) && condition nown) 
+    then realf5 n f (f init nown) (nown-1) condition
+    else realf5 n f init (nown-1) condition
+
+let f5 n f init condition = 
+    realf5 n f init (n-1) condition  
+
+
+let rec realf4 n f init nown conditional =
+    if nown = 0 then init
+    elif ((n % nown) = 0 && conditional nown)
+    then realf4 n f (f init nown) (nown-1) conditional
+    else realf4 n f init (nown-1) conditional
+    
+let f4 n (f : int -> int -> int) init conditional = 
+    realf4 n f init n conditional
+
 
 [<EntryPoint>]
 let main argv =
@@ -171,7 +179,6 @@ let main argv =
     printfn "%b" (2*4*6*8*10 = f5 num (fun x y -> x*y) 1 (fun x -> x%2 = 0))
     0
     *)
-
 (*  8-9
 let rec nod a b =
     if (a > 0 && b > 0)
@@ -183,7 +190,7 @@ let rec nod a b =
          else a  
 
 let isMS (a, b) = ((nod a b) = 1)
-let isDiv (a,b) = ( float (a/b) = ( (float a) / (float b) ) )
+let isDiv (a,b) = ( a%b )
 let constTrue a = true
 let count a b = a+1
 let div3 a = (0 = (a%3))
