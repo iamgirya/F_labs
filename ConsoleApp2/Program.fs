@@ -402,6 +402,41 @@ let main argv =
 
 (* 18
 
+let rec inputList n =
+    if n=0 then []
+    else  
+    System.Convert.ToInt32(System.Console.ReadLine()) :: (inputList (n-1))
+
+let rec outList list = 
+    match list with
+    [] ->   
+        let z = System.Console.ReadKey()
+        0
+    | (head : int)::tail -> 
+        System.Console.WriteLine(head)
+        outList tail  
+
+let rec funcAcc list f  (p: int-> bool) (acc:int) =
+    match list with
+    [] ->
+        acc
+    | (head : int)::tail -> 
+        if (p head) then funcAcc tail f p (f acc head) 
+        else funcAcc tail f p acc
+
+let countOfElemsInAB list a b =
+    funcAcc list (fun x y -> x+1) (fun x -> x >= a && x <= b) 0
+    
+[<EntryPoint>]
+let main argv =
+//1.38
+//Дан целочисленный массив и отрезок a..b. Необходимо найти
+//количество элементов, значение которых принадлежит этому отрезку.
+    let (a,b) = System.Convert.ToInt32(System.Console.ReadLine()) ,System.Convert.ToInt32(System.Console.ReadLine())
+    let testList = System.Convert.ToInt32(System.Console.ReadLine()) |> inputList 
+    printfn "%i" (countOfElemsInAB testList a b)
+    0
+
 *)
 
 (* 19
@@ -434,19 +469,15 @@ let rec funcAcc list f  (p: int-> bool) (acc:int) =
         if (p head) then funcAcc tail f p (f acc head) 
         else funcAcc tail f p acc
 
-let foundMax list =
-    funcAcc list (fun x y -> if (y>x) then y else x) (fun x -> true) Int32.MinValue
-
-let ifMaxBetweensAB list a b =
-    let max = foundMax list
-    if (max > a && max < b) then true else false
+let countOfElemsInAB list a b =
+    funcAcc list (fun x y -> x+1) (fun x -> x >= a && x <= b) 0
     
 [<EntryPoint>]
 let main argv =
-//1.29
-//Дан целочисленный массив и интервал a..b. Необходимо проверить
-//наличие максимального элемента массива в этом интервале.
+//1.38
+//Дан целочисленный массив и отрезок a..b. Необходимо найти
+//количество элементов, значение которых принадлежит этому отрезку.
     let (a,b) = System.Convert.ToInt32(System.Console.ReadLine()) ,System.Convert.ToInt32(System.Console.ReadLine())
     let testList = System.Convert.ToInt32(System.Console.ReadLine()) |> inputList 
-    printfn "%b" (ifMaxBetweensAB testList a b)
+    printfn "%i" (countOfElemsInAB testList a b)
     0
