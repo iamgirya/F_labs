@@ -281,6 +281,80 @@ let main argv =
 
 (* 16
 
+let rec inputList n =
+    if n=0 then []
+    else  
+    System.Convert.ToInt32(System.Console.ReadLine()) :: (inputList (n-1))
+
+let rec outList list = 
+    match list with
+    [] ->   
+        let z = System.Console.ReadKey()
+        0
+    | (head : int)::tail -> 
+        System.Console.WriteLine(head)
+        outList tail  
+
+let rec funcAcc list f  (p: int-> bool) acc =
+    match list with
+    [] ->
+        acc
+    | (head : int)::tail -> 
+        if (p head) then funcAcc tail f p (f acc head) 
+        else funcAcc tail f p acc
+
+let foundTwoMin list =
+    funcAcc list (fun x y -> if (y<=fst(x)) then (y,fst(x)) elif (y<snd(x)) then (fst(x),y) else x) (fun x -> true) (Int32.MaxValue, Int32.MaxValue)
+
+let rec realfoundIndOfTwoElem list elem1 elem2 nowindex search =
+    if fst(search) <> -1 && snd(search) <> -1 then search
+    else
+        match list with
+        [] ->
+            search
+        | (head : int)::tail -> 
+            if (head = elem1 && fst(search) = -1) then realfoundIndOfTwoElem tail elem1 elem2 (nowindex+1) (nowindex, snd(search)) 
+            elif (head = elem2 && snd(search) = -1) then realfoundIndOfTwoElem tail elem1 elem2 (nowindex+1) (fst(search), nowindex)
+            else realfoundIndOfTwoElem tail elem1 elem2 (nowindex+1) search
+
+let rec foundIndOfTwoElem list (elem1, elem2)=
+    realfoundIndOfTwoElem list elem1 elem2 0 (-1,-1)
+    
+
+let rec foundCount listik stopIndex nowIndex counter=
+    match listik with
+    [] ->
+        counter
+    | (head : int)::tail -> 
+        if (nowIndex = stopIndex) then 
+            counter
+        else (foundCount tail stopIndex (nowIndex+1) (counter+1))
+
+let rec countElemFromTo list indexFrom indexTo nowIndex=
+    match list with
+    [] ->
+        0
+    | (head : int)::tail -> 
+        if (nowIndex = indexFrom) then 
+            foundCount tail indexTo (nowIndex+1) 0 
+        else (countElemFromTo tail indexFrom indexTo (nowIndex+1))
+
+let countBetweenMinAndSecondMin list =
+    let (m1, m2) = foundIndOfTwoElem list (foundTwoMin list)
+
+    if (m1 > m2) then
+        countElemFromTo list m2 m1 0
+    else
+        countElemFromTo list m1 m2 0
+    
+[<EntryPoint>]
+let main argv =
+//1.26
+//Дан целочисленный массив. Необходимо найти количество
+//элементов между первым и последним минимальным.
+    let testList = System.Convert.ToInt32(System.Console.ReadLine()) |> inputList 
+    printfn "%i" (countBetweenMinAndSecondMin testList)
+
 *)
 
 (* 17
@@ -321,8 +395,8 @@ let rec funcAcc list f  (p: int-> bool) acc =
         if (p head) then funcAcc tail f p (f acc head) 
         else funcAcc tail f p acc
 
-let foundTwoMax list =
-    funcAcc list (fun x y -> if (y>=fst(x)) then (y,fst(x)) elif (y>=snd(x)) then (fst(x),y) else x) (fun x -> true) (Int32.MinValue, Int32.MinValue)
+let foundTwoMin list =
+    funcAcc list (fun x y -> if (y<=fst(x)) then (y,fst(x)) elif (y<snd(x)) then (fst(x),y) else x) (fun x -> true) (Int32.MaxValue, Int32.MaxValue)
 
 let rec realfoundIndOfTwoElem list elem1 elem2 nowindex search =
     if fst(search) <> -1 && snd(search) <> -1 then search
@@ -339,36 +413,37 @@ let rec foundIndOfTwoElem list (elem1, elem2)=
     realfoundIndOfTwoElem list elem1 elem2 0 (-1,-1)
     
 
-let rec foundPart listik stopIndex nowIndex=
+let rec foundCount listik stopIndex nowIndex counter=
     match listik with
     [] ->
-        []
+        counter
     | (head : int)::tail -> 
         if (nowIndex = stopIndex) then 
-            []
-        else head :: (foundPart tail stopIndex (nowIndex+1))
+            counter
+        else (foundCount tail stopIndex (nowIndex+1) (counter+1))
 
-let rec takePartListFromTo list indexFrom indexTo nowIndex=
+let rec countElemFromTo list indexFrom indexTo nowIndex=
     match list with
     [] ->
-        []
+        0
     | (head : int)::tail -> 
         if (nowIndex = indexFrom) then 
-            foundPart tail indexTo (nowIndex+1) 
-        else (takePartListFromTo tail indexFrom indexTo (nowIndex+1))
+            foundCount tail indexTo (nowIndex+1) 0 
+        else (countElemFromTo tail indexFrom indexTo (nowIndex+1))
 
-let takePartBetweenMaxAndSecondMax list =
-    let (m1, m2) = foundIndOfTwoElem list (foundTwoMax list)
+let countBetweenMinAndSecondMin list =
+    let (m1, m2) = foundIndOfTwoElem list (foundTwoMin list)
 
     if (m1 > m2) then
-        takePartListFromTo list m2 m1 0
+        countElemFromTo list m2 m1 0
     else
-        takePartListFromTo list m1 m2 0
+        countElemFromTo list m1 m2 0
     
 [<EntryPoint>]
 let main argv =
-//1.16
-//Дан целочисленный массив. Необходимо найти элементы,
-//расположенные между первым и вторым максимальным.
+//1.26
+//Дан целочисленный массив. Необходимо найти количество
+//элементов между первым и последним минимальным.
     let testList = System.Convert.ToInt32(System.Console.ReadLine()) |> inputList 
-    outList (takePartBetweenMaxAndSecondMax testList)
+    printfn "%i" (countBetweenMinAndSecondMin testList)
+    0
