@@ -441,16 +441,10 @@ let main argv =
 
 (* 19
 
-*)
-
-(* 20
-
-*)
-
 let rec inputList n =
     if n=0 then []
     else  
-    System.Convert.ToInt32(System.Console.ReadLine()) :: (inputList (n-1))
+    System.Convert.ToDouble(System.Console.ReadLine()) :: (inputList (n-1))
 
 let rec outList list = 
     match list with
@@ -461,23 +455,72 @@ let rec outList list =
         System.Console.WriteLine(head)
         outList tail  
 
-let rec funcAcc list f  (p: int-> bool) (acc:int) =
+let isInt (num : double) =
+    let fullPart: int = System.Convert.ToInt32(num)
+    System.Convert.ToDouble(fullPart) = num
+
+let rec realIfDoubleAndIntAlternate list acc =
     match list with
     [] ->
-        acc
-    | (head : int)::tail -> 
-        if (p head) then funcAcc tail f p (f acc head) 
-        else funcAcc tail f p acc
-
-let countOfElemsInAB list a b =
-    funcAcc list (fun x y -> x+1) (fun x -> x >= a && x <= b) 0
+        true
+    | (head : double)::tail -> 
+        if (acc = 0) then if (isInt head) then false else realIfDoubleAndIntAlternate tail 1
+        elif (acc = 1) then if (isInt head) then realIfDoubleAndIntAlternate tail 0 else false
+        else if (isInt head) then realIfDoubleAndIntAlternate tail 0 else realIfDoubleAndIntAlternate tail 1
     
+let IfDoubleAndIntAlternate list =
+    realIfDoubleAndIntAlternate list -1
+
 [<EntryPoint>]
 let main argv =
-//1.38
-//Дан целочисленный массив и отрезок a..b. Необходимо найти
-//количество элементов, значение которых принадлежит этому отрезку.
-    let (a,b) = System.Convert.ToInt32(System.Console.ReadLine()) ,System.Convert.ToInt32(System.Console.ReadLine())
+//1.44
+//Дан массив чисел. Необходимо проверить, чередуются ли в нем
+//целые и вещественные числа.
     let testList = System.Convert.ToInt32(System.Console.ReadLine()) |> inputList 
-    printfn "%i" (countOfElemsInAB testList a b)
+    printfn "%b" (IfDoubleAndIntAlternate testList)
+    0
+
+*)
+
+(* 20
+
+*)
+
+let rec inputList n =
+    if n=0 then []
+    else  
+    System.Convert.ToDouble(System.Console.ReadLine()) :: (inputList (n-1))
+
+let rec outList list = 
+    match list with
+    [] ->   
+        let z = System.Console.ReadKey()
+        0
+    | (head : int)::tail -> 
+        System.Console.WriteLine(head)
+        outList tail  
+
+let isInt (num : double) =
+    let fullPart: int = System.Convert.ToInt32(num)
+    System.Convert.ToDouble(fullPart) = num
+
+let rec realIfDoubleAndIntAlternate list acc =
+    match list with
+    [] ->
+        true
+    | (head : double)::tail -> 
+        if (acc = 0) then if (isInt head) then false else realIfDoubleAndIntAlternate tail 1
+        elif (acc = 1) then if (isInt head) then realIfDoubleAndIntAlternate tail 0 else false
+        else if (isInt head) then realIfDoubleAndIntAlternate tail 0 else realIfDoubleAndIntAlternate tail 1
+    
+let IfDoubleAndIntAlternate list =
+    realIfDoubleAndIntAlternate list -1
+
+[<EntryPoint>]
+let main argv =
+//1.44
+//Дан массив чисел. Необходимо проверить, чередуются ли в нем
+//целые и вещественные числа.
+    let testList = System.Convert.ToInt32(System.Console.ReadLine()) |> inputList 
+    printfn "%b" (IfDoubleAndIntAlternate testList)
     0
