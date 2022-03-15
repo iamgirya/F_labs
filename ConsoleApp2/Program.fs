@@ -484,12 +484,10 @@ let main argv =
 
 (* 20
 
-*)
-
 let rec inputList n =
     if n=0 then []
     else  
-    System.Convert.ToDouble(System.Console.ReadLine()) :: (inputList (n-1))
+    System.Convert.ToInt32(System.Console.ReadLine()) :: (inputList (n-1))
 
 let rec outList list = 
     match list with
@@ -500,27 +498,98 @@ let rec outList list =
         System.Console.WriteLine(head)
         outList tail  
 
-let isInt (num : double) =
-    let fullPart: int = System.Convert.ToInt32(num)
-    System.Convert.ToDouble(fullPart) = num
-
-let rec realIfDoubleAndIntAlternate list acc =
+let rec elemNotRepeatInList list elem count =
     match list with
     [] ->
         true
-    | (head : double)::tail -> 
-        if (acc = 0) then if (isInt head) then false else realIfDoubleAndIntAlternate tail 1
-        elif (acc = 1) then if (isInt head) then realIfDoubleAndIntAlternate tail 0 else false
-        else if (isInt head) then realIfDoubleAndIntAlternate tail 0 else realIfDoubleAndIntAlternate tail 1
+    | head::tail -> 
+        if (elem = fst(head) && count = 1) then false
+        elif (elem = fst(head)) then elemNotRepeatInList tail elem (count+1)
+        else elemNotRepeatInList tail elem count
+
+let rec deleteRepeat nowlist startList=
+    match nowlist with
+    [] ->
+        []
+    | (head: int * int)::tail -> 
+        let elem = fst(head)
+        if (elemNotRepeatInList startList elem 0) then head :: deleteRepeat tail startList
+        else deleteRepeat tail startList
+
+let rec listOfDivOnOwnIndex nowlist=
+    match nowlist with
+    [] ->
+        []
+    | head::tail -> 
+        if ((fst(head) % snd(head)) = 0) then fst(head) :: listOfDivOnOwnIndex tail
+        else listOfDivOnOwnIndex tail
     
-let IfDoubleAndIntAlternate list =
-    realIfDoubleAndIntAlternate list -1
+let listOfNoRepeatAndDivOnOwnIndexElems list size=
+    let listOfNumber = [ for i in 1 .. size -> i]
+    let listWithNumbers = List.zip list listOfNumber
+    let listOfNoRepeat = deleteRepeat listWithNumbers listWithNumbers
+    listOfDivOnOwnIndex listOfNoRepeat
 
 [<EntryPoint>]
 let main argv =
-//1.44
-//Дан массив чисел. Необходимо проверить, чередуются ли в нем
-//целые и вещественные числа.
-    let testList = System.Convert.ToInt32(System.Console.ReadLine()) |> inputList 
-    printfn "%b" (IfDoubleAndIntAlternate testList)
-    0
+//1.60. Дан список. Построить массив из элементов, делящихся на свой
+//номер и встречающихся в исходном массиве 1 раз.
+    let size = System.Convert.ToInt32(System.Console.ReadLine())
+    let testList = inputList size
+    outList (listOfNoRepeatAndDivOnOwnIndexElems testList size)
+
+*)
+
+let rec inputList n =
+    if n=0 then []
+    else  
+    System.Convert.ToInt32(System.Console.ReadLine()) :: (inputList (n-1))
+
+let rec outList list = 
+    match list with
+    [] ->   
+        let z = System.Console.ReadKey()
+        0
+    | (head : int)::tail -> 
+        System.Console.WriteLine(head)
+        outList tail  
+
+let rec elemNotRepeatInList list elem count =
+    match list with
+    [] ->
+        true
+    | head::tail -> 
+        if (elem = fst(head) && count = 1) then false
+        elif (elem = fst(head)) then elemNotRepeatInList tail elem (count+1)
+        else elemNotRepeatInList tail elem count
+
+let rec deleteRepeat nowlist startList=
+    match nowlist with
+    [] ->
+        []
+    | (head: int * int)::tail -> 
+        let elem = fst(head)
+        if (elemNotRepeatInList startList elem 0) then head :: deleteRepeat tail startList
+        else deleteRepeat tail startList
+
+let rec listOfDivOnOwnIndex nowlist=
+    match nowlist with
+    [] ->
+        []
+    | head::tail -> 
+        if ((fst(head) % snd(head)) = 0) then fst(head) :: listOfDivOnOwnIndex tail
+        else listOfDivOnOwnIndex tail
+    
+let listOfNoRepeatAndDivOnOwnIndexElems list size=
+    let listOfNumber = [ for i in 1 .. size -> i]
+    let listWithNumbers = List.zip list listOfNumber
+    let listOfNoRepeat = deleteRepeat listWithNumbers listWithNumbers
+    listOfDivOnOwnIndex listOfNoRepeat
+
+[<EntryPoint>]
+let main argv =
+//1.60. Дан список. Построить массив из элементов, делящихся на свой
+//номер и встречающихся в исходном массиве 1 раз.
+    let size = System.Convert.ToInt32(System.Console.ReadLine())
+    let testList = inputList size
+    outList (listOfNoRepeatAndDivOnOwnIndexElems testList size)
