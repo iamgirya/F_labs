@@ -359,6 +359,45 @@ let main argv =
 
 (* 17
 
+let rec inputList n =
+    if n=0 then []
+    else  
+    System.Convert.ToInt32(System.Console.ReadLine()) :: (inputList (n-1))
+
+let rec outList list = 
+    match list with
+    [] ->   
+        let z = System.Console.ReadKey()
+        0
+    | (head : int)::tail -> 
+        System.Console.WriteLine(head)
+        outList tail  
+
+let rec funcAcc list f  (p: int-> bool) (acc:int) =
+    match list with
+    [] ->
+        acc
+    | (head : int)::tail -> 
+        if (p head) then funcAcc tail f p (f acc head) 
+        else funcAcc tail f p acc
+
+let foundMax list =
+    funcAcc list (fun x y -> if (y>x) then y else x) (fun x -> true) Int32.MinValue
+
+let ifMaxBetweensAB list a b =
+    let max = foundMax list
+    if (max > a && max < b) then true else false
+    
+[<EntryPoint>]
+let main argv =
+//1.29
+//Дан целочисленный массив и интервал a..b. Необходимо проверить
+//наличие максимального элемента массива в этом интервале.
+    let (a,b) = System.Convert.ToInt32(System.Console.ReadLine()) ,System.Convert.ToInt32(System.Console.ReadLine())
+    let testList = System.Convert.ToInt32(System.Console.ReadLine()) |> inputList 
+    printfn "%b" (ifMaxBetweensAB testList a b)
+    0
+
 *)
 
 (* 18
@@ -387,7 +426,7 @@ let rec outList list =
         System.Console.WriteLine(head)
         outList tail  
 
-let rec funcAcc list f  (p: int-> bool) acc =
+let rec funcAcc list f  (p: int-> bool) (acc:int) =
     match list with
     [] ->
         acc
@@ -395,55 +434,19 @@ let rec funcAcc list f  (p: int-> bool) acc =
         if (p head) then funcAcc tail f p (f acc head) 
         else funcAcc tail f p acc
 
-let foundTwoMin list =
-    funcAcc list (fun x y -> if (y<=fst(x)) then (y,fst(x)) elif (y<snd(x)) then (fst(x),y) else x) (fun x -> true) (Int32.MaxValue, Int32.MaxValue)
+let foundMax list =
+    funcAcc list (fun x y -> if (y>x) then y else x) (fun x -> true) Int32.MinValue
 
-let rec realfoundIndOfTwoElem list elem1 elem2 nowindex search =
-    if fst(search) <> -1 && snd(search) <> -1 then search
-    else
-        match list with
-        [] ->
-            search
-        | (head : int)::tail -> 
-            if (head = elem1 && fst(search) = -1) then realfoundIndOfTwoElem tail elem1 elem2 (nowindex+1) (nowindex, snd(search)) 
-            elif (head = elem2 && snd(search) = -1) then realfoundIndOfTwoElem tail elem1 elem2 (nowindex+1) (fst(search), nowindex)
-            else realfoundIndOfTwoElem tail elem1 elem2 (nowindex+1) search
-
-let rec foundIndOfTwoElem list (elem1, elem2)=
-    realfoundIndOfTwoElem list elem1 elem2 0 (-1,-1)
-    
-
-let rec foundCount listik stopIndex nowIndex counter=
-    match listik with
-    [] ->
-        counter
-    | (head : int)::tail -> 
-        if (nowIndex = stopIndex) then 
-            counter
-        else (foundCount tail stopIndex (nowIndex+1) (counter+1))
-
-let rec countElemFromTo list indexFrom indexTo nowIndex=
-    match list with
-    [] ->
-        0
-    | (head : int)::tail -> 
-        if (nowIndex = indexFrom) then 
-            foundCount tail indexTo (nowIndex+1) 0 
-        else (countElemFromTo tail indexFrom indexTo (nowIndex+1))
-
-let countBetweenMinAndSecondMin list =
-    let (m1, m2) = foundIndOfTwoElem list (foundTwoMin list)
-
-    if (m1 > m2) then
-        countElemFromTo list m2 m1 0
-    else
-        countElemFromTo list m1 m2 0
+let ifMaxBetweensAB list a b =
+    let max = foundMax list
+    if (max > a && max < b) then true else false
     
 [<EntryPoint>]
 let main argv =
-//1.26
-//Дан целочисленный массив. Необходимо найти количество
-//элементов между первым и последним минимальным.
+//1.29
+//Дан целочисленный массив и интервал a..b. Необходимо проверить
+//наличие максимального элемента массива в этом интервале.
+    let (a,b) = System.Convert.ToInt32(System.Console.ReadLine()) ,System.Convert.ToInt32(System.Console.ReadLine())
     let testList = System.Convert.ToInt32(System.Console.ReadLine()) |> inputList 
-    printfn "%i" (countBetweenMinAndSecondMin testList)
+    printfn "%b" (ifMaxBetweensAB testList a b)
     0
