@@ -31,14 +31,18 @@ let main argv =
 let rec recmaxn (n, ans) =
     if n = 0 then ans
     else 
-        if (n%10 > ans) then recmaxn ((n/10), (n%10))
-        else recmaxn ((n/10), ans)
+        let nd =(n/10)
+        let no = (n%10)
+        if (no > ans) then recmaxn (nd, no)
+        else recmaxn (nd, ans)
 //хвостовая рекурсия
 let rec recminn (n, ans) =
     if n = 0 then ans
     else
-        if (n%10 < ans) then recminn ((n/10), n%10)
-        else recminn ((n/10), ans)    
+        let nd =(n/10)
+        let no = (n%10)
+        if (no < ans) then recminn (nd, no)
+        else recminn (nd, ans)    
 // рекурсия вверх
 let rec proiz n =
     if n = 0 then 1
@@ -59,10 +63,14 @@ let main argv =
 
 (* 4
 let rec realf4 n f init nown =
+    let nnown = nown-1
+
     if nown = 0 then init
     elif ((n % nown) = 0)
-    then realf4 n f (f init nown) (nown-1)
-    else realf4 n f init (nown-1)
+    then
+        let ninit = (f init nown)
+        realf4 n f ninit nnown
+    else realf4 n f init nnown
 
 let f4 n (f : int -> int -> int) init = 
     realf4 n f init n
@@ -85,10 +93,13 @@ let rec nod a b =
          else a
     
 let rec realf5 n f init nown =
+    let nnown = nown-1
     if (nown = 0) then init
     elif ((nod n nown) = 1) 
-    then realf5 n f (f init nown) (nown-1)
-    else realf5 n f init (nown-1)
+    then 
+        let ninit = (f init nown)
+        realf5 n f ninit nnown
+    else realf5 n f init nnown
 
 let f5 n f init = 
     realf5 n f init (n-1)
@@ -114,10 +125,13 @@ let rec nod a b =
     
 
 let rec realf5 n f init nown =
+    let nnown = nown-1
     if (nown = 0) then init
     elif ((nod n nown) = 1) 
-    then realf5 n f (f init nown) (nown-1)
-    else realf5 n f init (nown-1)
+    then 
+        let ninit = (f init nown)
+        realf5 n f ninit nnown
+    else realf5 n f init nnown
 
 let f5 n f init = 
     realf5 n f init (n-1)
@@ -150,10 +164,13 @@ let rec nod a b =
 
 
 let rec realf5 n f init nown condition =
+    let nnown = nown-1
     if (nown = 0) then init
     elif (((nod n nown) = 1) && condition nown) 
-    then realf5 n f (f init nown) (nown-1) condition
-    else realf5 n f init (nown-1) condition
+    then 
+        let ninit = (f init nown)
+        realf5 n f ninit nnown condition
+    else realf5 n f init nnown condition
 
 let f5 n f init condition = 
     realf5 n f init (n-1) condition  
@@ -162,7 +179,9 @@ let f5 n f init condition =
 let rec realf4 n f init nown conditional =
     if nown = 0 then init
     elif ((n % nown) = 0 && conditional nown)
-    then realf4 n f (f init nown) (nown-1) conditional
+    then 
+        let ninit = (f init nown)
+        realf4 n f ninit (nown-1) conditional
     else realf4 n f init (nown-1) conditional
     
 let f4 n (f : int -> int -> int) init conditional = 
@@ -197,26 +216,33 @@ let div3 a = (0 = (a%3))
 let sum a b = a+b
 
 let rec mutSimp init condition func nownum num= 
-    if nownum <= 0 then init
-    else 
-        if (isMS (nownum, num) && condition (nownum)) 
-        then mutSimp (func init nownum) condition func (nownum-1) num
-        else mutSimp init condition func (nownum-1) num
+if nownum <= 0 then init
+else 
+    if (isMS (nownum, num) && condition (nownum)) 
+    then 
+        let nint = (func init nownum)
+        mutSimp nint condition func (nownum-1) num
+    else mutSimp init condition func (nownum-1) num
 
 
 let rec digOfNum init condition func num =
-    if num = 0 then init
-    else 
-        if (condition (num%10)) 
-        then digOfNum (func init (num%10)) condition func (num/10)
-        else digOfNum init condition func (num/10)
+let nnum = num/10
+if num = 0 then init
+else 
+    if (condition (num%10)) 
+    then 
+        let nint = (func init (num%10))
+        digOfNum nint condition func nnum
+    else digOfNum init condition func nnum
 
 let rec divOfNum init condition func nownum num= 
-    if nownum <= 0 then init
-    else 
-        if (isDiv (num,nownum)  && condition (nownum)) 
-        then divOfNum (func init nownum) condition func (nownum-1) num
-        else divOfNum init condition func (nownum-1) num
+if nownum <= 0 then init
+else 
+    if (isDiv (num,nownum)  && condition (nownum)) 
+    then 
+        let nint = (func init nownum)
+        divOfNum nint condition func (nownum-1) num
+    else divOfNum init condition func (nownum-1) num
 
 let countOfMP (div,count) dig = 
     if (isMS(div, dig)) then (div,count+1) 
@@ -266,22 +292,29 @@ let rec mutSimp init condition func nownum num=
     if nownum <= 0 then init
     else 
         if (isMS (nownum, num) && condition (nownum)) 
-        then mutSimp (func init nownum) condition func (nownum-1) num
+        then 
+            let nint = (func init nownum)
+            mutSimp nint condition func (nownum-1) num
         else mutSimp init condition func (nownum-1) num
 
 
 let rec digOfNum init condition func num =
+    let nnum = num/10
     if num = 0 then init
     else 
         if (condition (num%10)) 
-        then digOfNum (func init (num%10)) condition func (num/10)
-        else digOfNum init condition func (num/10)
+        then 
+            let nint = (func init (num%10))
+            digOfNum nint condition func nnum
+        else digOfNum init condition func nnum
 
 let rec divOfNum init condition func nownum num= 
     if nownum <= 0 then init
     else 
         if (isDiv (num,nownum)  && condition (nownum)) 
-        then divOfNum (func init nownum) condition func (nownum-1) num
+        then 
+            let nint = (func init nownum)
+            divOfNum nint condition func (nownum-1) num
         else divOfNum init condition func (nownum-1) num
 
 let countOfMP (div,count) dig = 
