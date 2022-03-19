@@ -72,6 +72,32 @@ let main argv =
 
 (* 13
 
+
+let appendList l1 l2 =
+    let rec inAppend l1 l2 f =
+        if (not f) then
+            match l1 with
+            [] ->
+                inAppend l1 l2 true
+            | head::tail -> 
+                head :: inAppend tail l2 f
+        else
+            match l2 with
+            [] ->
+                []
+            | head::tail -> 
+                head :: inAppend l1 tail f
+    inAppend l1 l2 false
+
+let revList l1 =
+    let rec inRec l1= 
+        match l1 with
+        head1::head2::tail ->
+            (inRec tail).Head :: [head2; head1]
+        | head::tail -> 
+            [head]
+    inRec l1
+
 let rec inputList n =
     if n=0 then []
     else  
@@ -135,9 +161,9 @@ let rec reverseListFromTo list indexFrom indexTo nowIndex=
     | (head : int)::tail -> 
         if (nowIndex = indexFrom) then 
             let reversePart = foundPart tail indexTo (nowIndex+1) 
-            let reversePart = List.rev reversePart
+            let newReversePart = revList reversePart
             let endPart = foundEnd tail indexTo (nowIndex+1) 
-            head :: (List.append reversePart endPart)
+            head :: (appendList newReversePart endPart)
              
         else head :: (reverseListFromTo tail indexFrom indexTo (nowIndex+1))
 
@@ -159,6 +185,7 @@ let main argv =
     let testList = System.Convert.ToInt32(System.Console.ReadLine()) |> inputList 
     outList (reversePartBetweenMinAndMax testList)
     0
+
 
 *)
 
@@ -484,6 +511,13 @@ let main argv =
 
 (* 20
 
+let rec zipList l1 l2 =
+match (l1,l2) with
+([],[]) ->
+    []
+| (head1::tail1,head2::tail2) -> 
+    (head1,head2) :: zipList tail1 tail2
+
 let rec inputList n =
     if n=0 then []
     else  
@@ -520,13 +554,13 @@ let rec listOfDivOnOwnIndex nowlist=
     match nowlist with
     [] ->
         []
-    | head::tail -> 
+    | head::tail ->  
         if ((fst(head) % snd(head)) = 0) then fst(head) :: listOfDivOnOwnIndex tail
         else listOfDivOnOwnIndex tail
     
 let listOfNoRepeatAndDivOnOwnIndexElems list size=
     let listOfNumber = [ for i in 1 .. size -> i]
-    let listWithNumbers = List.zip list listOfNumber
+    let listWithNumbers = zipList list listOfNumber
     let listOfNoRepeat = deleteRepeat listWithNumbers listWithNumbers
     listOfDivOnOwnIndex listOfNoRepeat
 
@@ -539,57 +573,3 @@ let main argv =
     outList (listOfNoRepeatAndDivOnOwnIndexElems testList size)
 
 *)
-
-let rec inputList n =
-    if n=0 then []
-    else  
-    System.Convert.ToInt32(System.Console.ReadLine()) :: (inputList (n-1))
-
-let rec outList list = 
-    match list with
-    [] ->   
-        let z = System.Console.ReadKey()
-        0
-    | (head : int)::tail -> 
-        System.Console.WriteLine(head)
-        outList tail  
-
-let rec elemNotRepeatInList list elem count =
-    match list with
-    [] ->
-        true
-    | head::tail -> 
-        if (elem = fst(head) && count = 1) then false
-        elif (elem = fst(head)) then elemNotRepeatInList tail elem (count+1)
-        else elemNotRepeatInList tail elem count
-
-let rec deleteRepeat nowlist startList=
-    match nowlist with
-    [] ->
-        []
-    | (head: int * int)::tail -> 
-        let elem = fst(head)
-        if (elemNotRepeatInList startList elem 0) then head :: deleteRepeat tail startList
-        else deleteRepeat tail startList
-
-let rec listOfDivOnOwnIndex nowlist=
-    match nowlist with
-    [] ->
-        []
-    | head::tail -> 
-        if ((fst(head) % snd(head)) = 0) then fst(head) :: listOfDivOnOwnIndex tail
-        else listOfDivOnOwnIndex tail
-    
-let listOfNoRepeatAndDivOnOwnIndexElems list size=
-    let listOfNumber = [ for i in 1 .. size -> i]
-    let listWithNumbers = List.zip list listOfNumber
-    let listOfNoRepeat = deleteRepeat listWithNumbers listWithNumbers
-    listOfDivOnOwnIndex listOfNoRepeat
-
-[<EntryPoint>]
-let main argv =
-//1.60. Дан список. Построить массив из элементов, делящихся на свой
-//номер и встречающихся в исходном массиве 1 раз.
-    let size = System.Convert.ToInt32(System.Console.ReadLine())
-    let testList = inputList size
-    outList (listOfNoRepeatAndDivOnOwnIndexElems testList size)
