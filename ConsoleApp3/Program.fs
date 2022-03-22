@@ -94,6 +94,23 @@ let main argv =
 Дан целочисленный массив. Найти количество его локальных
 максимумов.
 
+let rec readList n = 
+    if n=0 then []
+    else
+    let Head = System.Convert.ToInt32(System.Console.ReadLine())
+    let Tail = readList (n-1)
+    Head::Tail
+
+[<EntryPoint>]
+let main argv =
+    let list1 = System.Convert.ToInt32(System.Console.ReadLine()) |> readList
+    let min = List.min list1
+    let movedBackOne = List.append [min] (List.take (list1.Length-1) list1) 
+    let movedNextOne = List.append (List.skip 1 list1) [min]
+
+    let tripleList = List.map3 (fun x y z -> if (x<y && y > z) then 1 else 0) movedBackOne list1 movedNextOne
+    printf "%i" (List.fold (fun x y -> if (y=1) then x+1 else x) 0 tripleList)
+    0
 *)
 
 (* 5
@@ -127,10 +144,6 @@ let main argv =
 
 *)
 
-1.22
-Дан целочисленный массив и интервал a..b. Необходимо найти
-количество минимальных элементов в этом интервале.
-
 let rec readList n = 
     if n=0 then []
     else
@@ -141,11 +154,10 @@ let rec readList n =
 [<EntryPoint>]
 let main argv =
     let list1 = System.Convert.ToInt32(System.Console.ReadLine()) |> readList
-    let (a,b) = (System.Convert.ToInt32(System.Console.ReadLine()), System.Convert.ToInt32(System.Console.ReadLine()))
-    let min = List.fold (fun x y -> if (x>y) then y else x) list1.Head list1
+    let min = List.min list1
+    let movedBackOne = List.append [min] (List.take (list1.Length-1) list1) 
+    let movedNextOne = List.append (List.skip 1 list1) [min]
 
-    let (firstPart,middleLastPart) = List.splitAt (a) list1
-    let (middlePart,lastPart) = List.splitAt (b-a+1) middleLastPart
-
-    printf "%i" (List.fold (fun x y -> if (y = min) then x+1 else x) 0 middlePart)
+    let tripleList = List.map3 (fun x y z -> if (x<y && y > z) then 1 else 0) movedBackOne list1 movedNextOne
+    printf "%i" (List.fold (fun x y -> if (y=1) then x+1 else x) 0 tripleList)
     0
