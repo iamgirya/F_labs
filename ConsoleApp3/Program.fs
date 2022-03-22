@@ -118,6 +118,26 @@ let main argv =
 Дан целочисленный массив. Найти все элементы, которые меньше
 среднего арифметического элементов массива.
 
+let rec readList n = 
+    if n=0 then []
+    else
+    let Head = System.Convert.ToDouble(System.Console.ReadLine())
+    let Tail = readList (n-1)
+    Head::Tail
+
+let rec writeList list = 
+    match list with
+    [] ->
+        0
+    | (head:float)::tail -> 
+        System.Console.WriteLine(head)
+        writeList tail  
+
+[<EntryPoint>]
+let main argv =
+    let list1 = System.Convert.ToInt32(System.Console.ReadLine()) |> readList
+    let avg = List.average list1
+    writeList (List.filter (fun x -> if (x < avg) then true else false) list1)
 *)
 
 (*  6
@@ -147,17 +167,20 @@ let main argv =
 let rec readList n = 
     if n=0 then []
     else
-    let Head = System.Convert.ToInt32(System.Console.ReadLine())
+    let Head = System.Convert.ToDouble(System.Console.ReadLine())
     let Tail = readList (n-1)
     Head::Tail
+
+let rec writeList list = 
+    match list with
+    [] ->
+        0
+    | (head:float)::tail -> 
+        System.Console.WriteLine(head)
+        writeList tail  
 
 [<EntryPoint>]
 let main argv =
     let list1 = System.Convert.ToInt32(System.Console.ReadLine()) |> readList
-    let min = List.min list1
-    let movedBackOne = List.append [min] (List.take (list1.Length-1) list1) 
-    let movedNextOne = List.append (List.skip 1 list1) [min]
-
-    let tripleList = List.map3 (fun x y z -> if (x<y && y > z) then 1 else 0) movedBackOne list1 movedNextOne
-    printf "%i" (List.fold (fun x y -> if (y=1) then x+1 else x) 0 tripleList)
-    0
+    let avg = List.average list1
+    writeList (List.filter (fun x -> if (x < avg) then true else false) list1)
