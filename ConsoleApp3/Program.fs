@@ -146,6 +146,28 @@ let main argv =
 итоговом списке число p должно повторятся α раз. Результирующий список
 должен быть упорядочен по возрастанию.
 
+
+let allDelToList number =
+    let rec delFounder num del =
+        if num <= 1 then []
+        else 
+            let new_del = del+1
+            if num % del =0 then del::(delFounder (num/del) del)                        
+            else delFounder num new_del  
+    delFounder number 2
+
+let rec writeList list = 
+    match list with
+    [] ->
+        0
+    | (head:int)::tail -> 
+        System.Console.WriteLine(head)
+        writeList tail  
+
+[<EntryPoint>]
+let main argv =
+    let number = System.Convert.ToInt32(System.Console.ReadLine())
+    writeList (allDelToList number)
 *)
 
 (* 7
@@ -163,24 +185,3 @@ let main argv =
 (* 10
 
 *)
-
-let rec readList n = 
-    if n=0 then []
-    else
-    let Head = System.Convert.ToDouble(System.Console.ReadLine())
-    let Tail = readList (n-1)
-    Head::Tail
-
-let rec writeList list = 
-    match list with
-    [] ->
-        0
-    | (head:float)::tail -> 
-        System.Console.WriteLine(head)
-        writeList tail  
-
-[<EntryPoint>]
-let main argv =
-    let list1 = System.Convert.ToInt32(System.Console.ReadLine()) |> readList
-    let avg = List.average list1
-    writeList (List.filter (fun x -> if (x < avg) then true else false) list1)
