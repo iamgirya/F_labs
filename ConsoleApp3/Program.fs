@@ -1,8 +1,83 @@
-﻿// Learn more about F# at http://fsharp.org
+﻿open System
 
-open System
+
+(*  1
+//1.2
+//Дан целочисленный массив. Необходимо найти индекс
+//минимального элемента.
 
 [<EntryPoint>]
 let main argv =
-    printfn "Hello World from F#!"
-    0 // return an integer exit code
+    let list1 = [ 1;2;6;5;-4;9;10;4;2;6]
+    let min = List.fold (fun x y -> if (x>y) then y else x) list1.Head list1
+    printf "%i" (List.findIndex (fun x -> x = min) list1)
+    0
+*)
+
+(*  2
+1.12
+Дан целочисленный массив. Необходимо переставить в обратном
+порядке элементы массива, расположенные между его минимальным и
+максимальным элементами.
+
+
+*)
+
+(* 3
+1.22
+Дан целочисленный массив и интервал a..b. Необходимо найти
+количество минимальных элементов в этом интервале.
+
+*)
+
+(* 4
+1.32
+Дан целочисленный массив. Найти количество его локальных
+максимумов.
+
+*)
+
+(* 5
+1.42
+Дан целочисленный массив. Найти все элементы, которые меньше
+среднего арифметического элементов массива.
+
+*)
+
+(*  6
+1.52. Для введенного числа построить список всех его простых делителей,
+причем если введенное число делится на простое число p в степени α , то в
+итоговом списке число p должно повторятся α раз. Результирующий список
+должен быть упорядочен по возрастанию.
+
+*)
+
+(* 7
+
+*)
+
+(*  8
+
+*)
+
+(*  9
+
+*)
+
+(* 10
+
+*)
+
+let rec readList n = 
+    if n=0 then []
+    else
+    let Head = System.Convert.ToInt32(System.Console.ReadLine())
+    let Tail = readList (n-1)
+    Head::Tail
+
+[<EntryPoint>]
+let main argv =
+    let list1 = System.Convert.ToInt32(System.Console.ReadLine()) |> readList
+    let min = List.fold (fun x y -> if (x>y) then y else x) list1.Head list1
+    printf "%i" (List.findIndex (fun x -> x = min) list1)
+    0
