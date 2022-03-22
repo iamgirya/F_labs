@@ -2,13 +2,20 @@
 
 
 (*  1
-//1.2
-//Дан целочисленный массив. Необходимо найти индекс
-//минимального элемента.
+1.2
+Дан целочисленный массив. Необходимо найти индекс
+минимального элемента.
+
+let rec readList n = 
+    if n=0 then []
+    else
+    let Head = System.Convert.ToInt32(System.Console.ReadLine())
+    let Tail = readList (n-1)
+    Head::Tail
 
 [<EntryPoint>]
 let main argv =
-    let list1 = [ 1;2;6;5;-4;9;10;4;2;6]
+    let list1 = System.Convert.ToInt32(System.Console.ReadLine()) |> readList
     let min = List.fold (fun x y -> if (x>y) then y else x) list1.Head list1
     printf "%i" (List.findIndex (fun x -> x = min) list1)
     0
@@ -20,13 +27,44 @@ let main argv =
 порядке элементы массива, расположенные между его минимальным и
 максимальным элементами.
 
+let rec readList n = 
+    if n=0 then []
+    else
+    let Head = System.Convert.ToInt32(System.Console.ReadLine())
+    let Tail = readList (n-1)
+    Head::Tail
 
+let rec writeList list = 
+    match list with
+    [] ->
+        0
+    | (head : int)::tail -> 
+        System.Console.WriteLine(head)
+        writeList tail  
+
+[<EntryPoint>]
+let main argv =
+    let list1 = System.Convert.ToInt32(System.Console.ReadLine()) |> readList
+    let minInd = 
+        let min = (List.fold (fun x y -> if (x>y) then y else x) list1.Head list1)
+        List.findIndex (fun x -> x = min) list1 
+    let maxInd = 
+        let max =List.fold (fun x y -> if (x>y) then x else y) list1.Head list1
+        List.findIndex (fun x -> x = max) list1 
+    if (minInd < maxInd) 
+    then
+        let (firstPart,middleLastPart) = List.splitAt (minInd+1) list1
+        let (middlePart,lastPart) = List.splitAt (maxInd-minInd-1) middleLastPart
+        let finalList = (List.append (List.append firstPart (List.rev middlePart)) lastPart)
+        writeList finalList
+    else
+        let (firstPart,middleLastPart) = List.splitAt (maxInd+1) list1
+        let (middlePart,lastPart) = List.splitAt (minInd-maxInd-1) middleLastPart
+        let finalList = (List.append (List.append firstPart (List.rev middlePart)) lastPart)
+        writeList finalList
 *)
 
 (* 3
-1.22
-Дан целочисленный массив и интервал a..b. Необходимо найти
-количество минимальных элементов в этом интервале.
 
 *)
 
@@ -75,9 +113,31 @@ let rec readList n =
     let Tail = readList (n-1)
     Head::Tail
 
+let rec writeList list = 
+    match list with
+    [] ->
+        0
+    | (head : int)::tail -> 
+        System.Console.WriteLine(head)
+        writeList tail  
+
 [<EntryPoint>]
 let main argv =
     let list1 = System.Convert.ToInt32(System.Console.ReadLine()) |> readList
-    let min = List.fold (fun x y -> if (x>y) then y else x) list1.Head list1
-    printf "%i" (List.findIndex (fun x -> x = min) list1)
-    0
+    let minInd = 
+        let min = (List.fold (fun x y -> if (x>y) then y else x) list1.Head list1)
+        List.findIndex (fun x -> x = min) list1 
+    let maxInd = 
+        let max =List.fold (fun x y -> if (x>y) then x else y) list1.Head list1
+        List.findIndex (fun x -> x = max) list1 
+    if (minInd < maxInd) 
+    then
+        let (firstPart,middleLastPart) = List.splitAt (minInd+1) list1
+        let (middlePart,lastPart) = List.splitAt (maxInd-minInd-1) middleLastPart
+        let finalList = (List.append (List.append firstPart (List.rev middlePart)) lastPart)
+        writeList finalList
+    else
+        let (firstPart,middleLastPart) = List.splitAt (maxInd+1) list1
+        let (middlePart,lastPart) = List.splitAt (minInd-maxInd-1) middleLastPart
+        let finalList = (List.append (List.append firstPart (List.rev middlePart)) lastPart)
+        writeList finalList
