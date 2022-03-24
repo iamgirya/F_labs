@@ -275,6 +275,10 @@ let metod1 str =
             else false
     isOrder justLower 0
 
+let metod2 str =
+    let justA = String.filter (fun x -> x = 'A') str
+    justA.Length
+
 [<EntryPoint>]
 let main argv =
     0
