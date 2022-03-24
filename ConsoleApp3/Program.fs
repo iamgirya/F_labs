@@ -266,19 +266,15 @@ let main argv =
 чаемости в текстах на этом алфавите
 
 *)
-let writeArray arr = 
-    let rec realWriteArray (arr : 'T [] ) (ind : int)=
-        if (ind = arr.Length) then ()
+let metod1 str =
+    let justLower = String.filter (fun x -> Char.IsLower x) str
+    let rec isOrder (str: string) ind =
+        if (ind = str.Length-1) then true
         else
-            let nextind = ind+1
-            System.Console.WriteLine( arr.[ind] )
-            realWriteArray arr nextind
-    realWriteArray arr 0
+            if (str.[ind] <= str.[ind+1]) then isOrder str (ind+1)
+            else false
+    isOrder justLower 0
 
 [<EntryPoint>]
 let main argv =
-    let А = [|1; 2; 3;|]
-    let B = [|4; 5; 7|]
-    let C = Array.append А ([| B.[0] |])
-    writeArray C
     0
