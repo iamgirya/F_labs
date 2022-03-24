@@ -308,45 +308,30 @@ let main argv =
 чаемости в текстах на этом алфавите
 
 *)
-let metod1 str =
-    let justLower = String.filter (fun x -> Char.IsLower x) str
-    let rec isOrder (str: string) ind =
-        if (ind = str.Length-1) then true
+let metod1 arrStr =
+    let rec foundAvgOfKode (str:string) ind (acc:int)=
+        if (ind = str.Length) then Convert.ToDouble(acc)/Convert.ToDouble(str.Length)
         else
-            if (str.[ind] <= str.[ind+1]) then isOrder str (ind+1)
-            else false
-    isOrder justLower 0
+            let nacc = acc + Convert.ToInt32(str.[ind])
+            foundAvgOfKode str (ind+1) nacc
+
+    Array.sortBy 
+        (fun (str:string) -> 
+            foundAvgOfKode str 0 0) 
+        arrStr
 
 let metod2 str =
     let justA = String.filter (fun x -> x = 'A') str
     justA.Length
 
-let metod3 str =
-    let rec takeBackWhile (str: string) separator ind =
-        if (ind = -1) then str
-        else
-            if (str.[ind] = separator) then str.[(ind+1)..]
-            else takeBackWhile str separator (ind-1)
-    let rec takeWhile (str: string) separator ind =
-        if (ind = str.Length) then str
-        else
-            if (str.[ind] = separator) then str.[..(ind-1)]
-            else takeWhile str separator (ind+1)
-
-    let justFile = takeBackWhile str '\\' (str.Length-1)
-    takeWhile justFile '.' 0
-
-let multimetod n str =
-    match n with
-    1 -> printfn "%b" (metod1 str)
-    | 2 -> printfn "%i" (metod2 str)
-    | _ -> printfn "%s" (metod3 str)
-
 [<EntryPoint>]
 let main argv =
-    System.Console.WriteLine( "Введите строку: " )
-    let str = System.Convert.ToString(System.Console.ReadLine())
+    System.Console.WriteLine( "Введите количество строк: " )
+    let num = System.Convert.ToInt32(System.Console.ReadLine())
+    System.Console.WriteLine( "Введите строки: " )
+    let arrOfStr = [| for i in 1..num -> System.Convert.ToString(System.Console.ReadLine()) |]
     System.Console.WriteLine( "Введите номер задачи: " )
     let n = System.Convert.ToInt32(System.Console.ReadLine())
-    multimetod n str
+
+    let c = metod1 arrOfStr
     0
