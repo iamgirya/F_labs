@@ -171,17 +171,119 @@ let main argv =
 *)
 
 (* 7
+2 Дан список, построить кортеж, содержащий пять списков, при этом
+- первый список содержит результат деления на два только четных
+элементов исходного,
+- второй список содержит результат деления на три только тех элементов
+первого, которые делятся на три,
+- третий список содержит квадраты значений второго списка,
+- четвертый список содержит только те элементы третьего, которые
+встречаются в первом,
+- пятый список содержит все элементы второго, третьего и четвертого
+списков.
 
+let rec readList n = 
+    if n=0 then 
+        System.Console.WriteLine()
+        []
+    else
+    let Head = System.Convert.ToInt32(System.Console.ReadLine())
+    let Tail = readList (n-1)
+    Head::Tail
+
+let rec writeList list = 
+    match list with
+    [] ->
+        System.Console.WriteLine()
+        0
+    | (head:int)::tail -> 
+        System.Console.WriteLine(head)
+        writeList tail  
+
+
+let buildCort list =
+    let fslist = List.map (fun x -> x/2) (List.filter (fun x -> x%2 = 0) list)
+    let twlist = List.map (fun x -> x/3) (List.filter (fun x -> x%3 = 0) list)
+    let thlist = List.map (fun x -> x*x) twlist
+    let folist = List.filter (fun x -> (List.tryFind (fun y -> x = y) fslist).IsSome ) thlist
+    let filist = List.append (List.append twlist thlist) folist
+    (fslist, twlist,thlist,folist,filist)
+
+[<EntryPoint>]
+let main argv =
+    let list1 = System.Convert.ToInt32(System.Console.ReadLine()) |> readList
+    let finalCort = buildCort list1
+    let (l1, l2,l3,l4,l5) = finalCort
+    ignore (writeList l1)
+    ignore (writeList l2)
+    ignore (writeList l3)
+    ignore (writeList l4)
+    writeList l5
 *)
 
 (*  8
+2 Дан массив А [1; 2; 3;] и массив B [4; 5; 7] скопировать
+последний элемент массива В в массив А.
 
 *)
 
 (*  9
+2 
+Дана строка, состоящая из символов латиницы. Необходимо
+проверить, упорядочены ли строчные символы этой строки по
+возрастанию.
+10
+Дана строка. Необходимо подсчитать количество букв "А" в этой
+строке.
+17
+Дана строка в которой записан путь к файлу. Необходимо найти
+имя файла без расширения.
 
 *)
 
 (* 10
+2
+В порядке увеличения среднего веса ASCII-кода символа строки
+5
+В порядке увеличения квадратичного отклонения частоты встре-
+чаемости самого часто встречаемого в строке символа от частоты его встре-
+чаемости в текстах на этом алфавите
 
 *)
+let rec readList n = 
+    if n=0 then 
+        System.Console.WriteLine()
+        []
+    else
+    let Head = System.Convert.ToInt32(System.Console.ReadLine())
+    let Tail = readList (n-1)
+    Head::Tail
+
+let rec writeList list = 
+    match list with
+    [] ->
+        System.Console.WriteLine()
+        0
+    | (head:int)::tail -> 
+        System.Console.WriteLine(head)
+        writeList tail  
+
+
+let buildCort list =
+    let fslist = List.map (fun x -> x/2) (List.filter (fun x -> x%2 = 0) list)
+    let twlist = List.map (fun x -> x/3) (List.filter (fun x -> x%3 = 0) list)
+    let thlist = List.map (fun x -> x*x) twlist
+    let folist = List.filter (fun x -> (List.tryFind (fun y -> x = y) fslist).IsSome ) thlist
+    let filist = List.append (List.append twlist thlist) folist
+    (fslist, twlist,thlist,folist,filist)
+
+[<EntryPoint>]
+let main argv =
+    let list1 = System.Convert.ToInt32(System.Console.ReadLine()) |> readList
+    let finalCort = buildCort list1
+    let (l1, l2,l3,l4,l5) = finalCort
+    ignore (writeList l1)
+    ignore (writeList l2)
+    ignore (writeList l3)
+    ignore (writeList l4)
+    writeList l5
