@@ -225,6 +225,22 @@ let main argv =
 2 Дан массив А [1; 2; 3;] и массив B [4; 5; 7] скопировать
 последний элемент массива В в массив А.
 
+let writeArray arr = 
+    let rec realWriteArray (arr : 'T [] ) (ind : int)=
+        if (ind = arr.Length) then ()
+        else
+            let nextind = ind+1
+            System.Console.WriteLine( arr.[ind] )
+            realWriteArray arr nextind
+    realWriteArray arr 0
+
+[<EntryPoint>]
+let main argv =
+    let А = [|1; 2; 3;|]
+    let B = [|4; 5; 7|]
+    let C = Array.append А ([| B.[0] |])
+    writeArray C
+    0
 *)
 
 (*  9
@@ -250,40 +266,19 @@ let main argv =
 чаемости в текстах на этом алфавите
 
 *)
-let rec readList n = 
-    if n=0 then 
-        System.Console.WriteLine()
-        []
-    else
-    let Head = System.Convert.ToInt32(System.Console.ReadLine())
-    let Tail = readList (n-1)
-    Head::Tail
-
-let rec writeList list = 
-    match list with
-    [] ->
-        System.Console.WriteLine()
-        0
-    | (head:int)::tail -> 
-        System.Console.WriteLine(head)
-        writeList tail  
-
-
-let buildCort list =
-    let fslist = List.map (fun x -> x/2) (List.filter (fun x -> x%2 = 0) list)
-    let twlist = List.map (fun x -> x/3) (List.filter (fun x -> x%3 = 0) list)
-    let thlist = List.map (fun x -> x*x) twlist
-    let folist = List.filter (fun x -> (List.tryFind (fun y -> x = y) fslist).IsSome ) thlist
-    let filist = List.append (List.append twlist thlist) folist
-    (fslist, twlist,thlist,folist,filist)
+let writeArray arr = 
+    let rec realWriteArray (arr : 'T [] ) (ind : int)=
+        if (ind = arr.Length) then ()
+        else
+            let nextind = ind+1
+            System.Console.WriteLine( arr.[ind] )
+            realWriteArray arr nextind
+    realWriteArray arr 0
 
 [<EntryPoint>]
 let main argv =
-    let list1 = System.Convert.ToInt32(System.Console.ReadLine()) |> readList
-    let finalCort = buildCort list1
-    let (l1, l2,l3,l4,l5) = finalCort
-    ignore (writeList l1)
-    ignore (writeList l2)
-    ignore (writeList l3)
-    ignore (writeList l4)
-    writeList l5
+    let А = [|1; 2; 3;|]
+    let B = [|4; 5; 7|]
+    let C = Array.append А ([| B.[0] |])
+    writeArray C
+    0
