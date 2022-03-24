@@ -279,6 +279,21 @@ let metod2 str =
     let justA = String.filter (fun x -> x = 'A') str
     justA.Length
 
+let metod3 str =
+    let rec takeBackWhile (str: string) separator ind =
+        if (ind = -1) then str
+        else
+            if (str.[ind] = separator) then str.[(ind+1)..]
+            else takeBackWhile str separator (ind-1)
+    let rec takeWhile (str: string) separator ind =
+        if (ind = str.Length) then str
+        else
+            if (str.[ind] = separator) then str.[..(ind-1)]
+            else takeWhile str separator (ind+11)
+
+    let justFile = takeBackWhile str '\\' (str.Length-1)
+    takeWhile justFile '.' 0
+
 [<EntryPoint>]
 let main argv =
     0
