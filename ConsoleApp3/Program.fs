@@ -255,6 +255,48 @@ let main argv =
 Дана строка в которой записан путь к файлу. Необходимо найти
 имя файла без расширения.
 
+let metod1 str =
+    let justLower = String.filter (fun x -> Char.IsLower x) str
+    let rec isOrder (str: string) ind =
+        if (ind = str.Length-1) then true
+        else
+            if (str.[ind] <= str.[ind+1]) then isOrder str (ind+1)
+            else false
+    isOrder justLower 0
+
+let metod2 str =
+    let justA = String.filter (fun x -> x = 'A') str
+    justA.Length
+
+let metod3 str =
+    let rec takeBackWhile (str: string) separator ind =
+        if (ind = -1) then str
+        else
+            if (str.[ind] = separator) then str.[(ind+1)..]
+            else takeBackWhile str separator (ind-1)
+    let rec takeWhile (str: string) separator ind =
+        if (ind = str.Length) then str
+        else
+            if (str.[ind] = separator) then str.[..(ind-1)]
+            else takeWhile str separator (ind+1)
+
+    let justFile = takeBackWhile str '\\' (str.Length-1)
+    takeWhile justFile '.' 0
+
+let multimetod n str =
+    match n with
+    1 -> printfn "%b" (metod1 str)
+    | 2 -> printfn "%i" (metod2 str)
+    | _ -> printfn "%s" (metod3 str)
+
+[<EntryPoint>]
+let main argv =
+    System.Console.WriteLine( "Введите строку: " )
+    let str = System.Convert.ToString(System.Console.ReadLine())
+    System.Console.WriteLine( "Введите номер задачи: " )
+    let n = System.Convert.ToInt32(System.Console.ReadLine())
+    multimetod n str
+    0
 *)
 
 (* 10
@@ -289,11 +331,22 @@ let metod3 str =
         if (ind = str.Length) then str
         else
             if (str.[ind] = separator) then str.[..(ind-1)]
-            else takeWhile str separator (ind+11)
+            else takeWhile str separator (ind+1)
 
     let justFile = takeBackWhile str '\\' (str.Length-1)
     takeWhile justFile '.' 0
 
+let multimetod n str =
+    match n with
+    1 -> printfn "%b" (metod1 str)
+    | 2 -> printfn "%i" (metod2 str)
+    | _ -> printfn "%s" (metod3 str)
+
 [<EntryPoint>]
 let main argv =
+    System.Console.WriteLine( "Введите строку: " )
+    let str = System.Convert.ToString(System.Console.ReadLine())
+    System.Console.WriteLine( "Введите номер задачи: " )
+    let n = System.Convert.ToInt32(System.Console.ReadLine())
+    multimetod n str
     0
