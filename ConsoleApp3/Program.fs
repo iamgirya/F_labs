@@ -320,9 +320,56 @@ let metod1 arrStr =
             foundAvgOfKode str 0 0) 
         arrStr
 
-let metod2 str =
-    let justA = String.filter (fun x -> x = 'A') str
-    justA.Length
+let metod2 arrStr =
+    let rateInAlp = [|
+                        8.17
+                        ;8.17
+                        ;1.49
+                        ;2.78
+                        ;4.25
+                        ;12.70
+                        ;2.23
+                        ;2.02
+                        ;6.09
+                        ;6.97
+                        ;0.15
+                        ;0.77
+                        ;4.03
+                        ;2.41
+                        ;6.75
+                        ;7.51
+                        ;1.93
+                        ;0.10
+                        ;5.99
+                        ;6.33
+                        ;9.06
+                        ;2.76
+                        ;0.98
+                        ;2.36
+                        ;0.15
+                        ;1.97
+                        ;0.07
+                    |]
+    let getKvadrOtkl str =
+        let rec getMostRatedChar (str:string) ind (count:int) (letter:char)=
+            if (ind = str.Length) then letter
+            else
+                let countOfThisLetter = (String.filter (fun c -> c = str.[ind]) str).Length
+                if (countOfThisLetter > count) then getMostRatedChar str (ind+1) countOfThisLetter str.[ind]
+                else getMostRatedChar str (ind+1) count letter
+        
+        let mostRatedLetter = getMostRatedChar str 0 0 ' '
+        let rateOfMostRatedLetter = 
+            (((String.filter (fun c -> c = mostRatedLetter) str).Length |> Convert.ToDouble) 
+                / ( str.Length |> Convert.ToDouble))
+            * 100.0
+        let rateInAlpOfMostRatedLetter = rateInAlp.[(Convert.ToInt32(mostRatedLetter) - 32)]
+
+        (rateInAlpOfMostRatedLetter-rateOfMostRatedLetter)*(rateInAlpOfMostRatedLetter-rateOfMostRatedLetter)
+
+
+    let OtklArr = Array.map (fun str -> getKvadrOtkl str) arrStr
+    Array.sort arrStr
 
 [<EntryPoint>]
 let main argv =
@@ -332,6 +379,4 @@ let main argv =
     let arrOfStr = [| for i in 1..num -> System.Convert.ToString(System.Console.ReadLine()) |]
     System.Console.WriteLine( "Введите номер задачи: " )
     let n = System.Convert.ToInt32(System.Console.ReadLine())
-
-    let c = metod1 arrOfStr
     0
