@@ -94,9 +94,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\danek\\Desktop\\Лямбда\\Лабы\\F_labs\\ConsoleApp4\\5\\5.fsproj",
-      "projectName": "5",
-      "projectPath": "C:\\Users\\danek\\Desktop\\Лямбда\\Лабы\\F_labs\\ConsoleApp4\\5\\5.fsproj",
+      "projectUniqueName": "C:\\Users\\danek\\Desktop\\Лямбда\\Лабы\\F_labs\\ConsoleApp4\\5\\5-6.fsproj",
+      "projectName": "5-6",
+      "projectPath": "C:\\Users\\danek\\Desktop\\Лямбда\\Лабы\\F_labs\\ConsoleApp4\\5\\5-6.fsproj",
       "packagesPath": "C:\\Users\\danek\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\danek\\Desktop\\Лямбда\\Лабы\\F_labs\\ConsoleApp4\\5\\obj\\",
       "projectStyle": "PackageReference",
