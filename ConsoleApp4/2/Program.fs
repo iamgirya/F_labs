@@ -22,9 +22,22 @@ let take a =
 let returnApply a =
     Just a
 
-let applyFunctor p1 p2 =
-    match p1, p2 with
-    Just f, Just a -> Just (f a)
+let applyFunctor (p1:obj) (p2:obj) =
+    match p1 with
+    :? Some<'a->'a> as s1 ->
+        match p2 with
+            :? Some<'a> as s2 ->
+                match s1, s2 with
+                Just f, Just a -> Just (f a)
+                | _ -> No  
+             | _ -> No   
+    | :? Some<'a> as s1 ->
+        match p2 with
+            :? Some<'a->'a> as s2 ->
+                match s1, s2 with
+                Just f, Just a -> Just (a f)
+                | _ -> No  
+             | _ -> No   
     | _ -> No
 
 // попытка реализовать 3-е свойство
@@ -44,7 +57,7 @@ let applyFunctor p1 p2 =
 let applyFunctorTest a b c d=
     if ( take (applyFunctor a b) = (take a) (take b)
     && (applyFunctor (returnApply c) (returnApply d)) = returnApply (c d)
-    && true //(applyFunctor a b) = (applyFunctor b a)  из-за строгой типизации функций доказать третье свойство коммутативности для данного типа невозможно.
+    && (applyFunctor a b) = (applyFunctor b a) 
     && true // свойство ассоциативности тоже невозможно доказать из-за свойств языка f#
     )
         then "Аппликативный функтор удовлетворяет законам"
