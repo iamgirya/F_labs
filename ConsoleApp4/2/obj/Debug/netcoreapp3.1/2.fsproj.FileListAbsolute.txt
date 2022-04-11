@@ -25,3 +25,5 @@ C:\Users\danek\Desktop\Лямбда\Лабы\F_labs\ConsoleApp4\2\obj\Debug\netc
 C:\Users\danek\Desktop\Лямбда\Лабы\F_labs\ConsoleApp4\2\obj\Debug\netcoreapp3.1\2.dll
 C:\Users\danek\Desktop\Лямбда\Лабы\F_labs\ConsoleApp4\2\obj\Debug\netcoreapp3.1\2.pdb
 C:\Users\danek\Desktop\Лямбда\Лабы\F_labs\ConsoleApp4\2\obj\Debug\netcoreapp3.1\2.genruntimeconfig.cache
+C:\Users\danek\Desktop\Лямбда\Лабы\F_labs\ConsoleApp4\2\bin\Debug\netcoreapp3.1\FParsec.dll
+C:\Users\danek\Desktop\Лямбда\Лабы\F_labs\ConsoleApp4\2\bin\Debug\netcoreapp3.1\FParsecCS.dll
