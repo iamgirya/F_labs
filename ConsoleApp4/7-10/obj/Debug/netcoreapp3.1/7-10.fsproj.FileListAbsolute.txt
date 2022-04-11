@@ -24,3 +24,4 @@ C:\Users\danek\Desktop\Лямбда\Лабы\F_labs\ConsoleApp4\7-10\obj\Debug\n
 C:\Users\danek\Desktop\Лямбда\Лабы\F_labs\ConsoleApp4\7-10\obj\Debug\netcoreapp3.1\7-10.dll
 C:\Users\danek\Desktop\Лямбда\Лабы\F_labs\ConsoleApp4\7-10\obj\Debug\netcoreapp3.1\7-10.pdb
 C:\Users\danek\Desktop\Лямбда\Лабы\F_labs\ConsoleApp4\7-10\obj\Debug\netcoreapp3.1\7-10.genruntimeconfig.cache
+C:\Users\danek\Desktop\Лямбда\Лабы\F_labs\ConsoleApp4\7-10\obj\Debug\netcoreapp3.1\7-10.fsproj.AssemblyReference.cache

@@ -52,6 +52,49 @@ type TSpasport() =
               | _ -> invalidArg "obj" "This diferent types" 
         end
 
+[<AbstractClass>]
+type Collection() =
+    abstract member searchDoc:(TSpasport)  -> (bool)
+
+type ArrayTS(list:'TSpasport list)=
+    inherit Collection()
+    member this.Arr = Array.ofList list
+    override this.searchDoc(obj) = 
+        Array.exists (fun (x:TSpasport)-> x = obj) this.Arr
+
+type ListTS(list:'TSpasport list)=
+    inherit Collection()
+    member this.list = list
+    override this.searchDoc(obj) = 
+        List.exists (fun (x:TSpasport)-> x = obj) this.list
+
+
+type SetTS(list:'TSpasport list)=
+    inherit Collection()
+    member this.set = Set.ofList list
+    override this.searchDoc(obj) = 
+        Set.contains obj this.set
+
+    override this.ToString() = "Записей: " + this.set.Count.ToString()
+
+type BinaryListTS(list:'TSpasport list)=
+    inherit Collection()
+    let rec binSearch (l:'TSpasport list) (el:TSpasport) =
+        match (List.length l) with
+        |0->false
+        |i->
+            let mid = i/2
+            match sign <| compare el l.[mid] with
+            |0->true
+            |1->binSearch l.[..mid - 1] el
+            |_->binSearch l.[mid + 1..] el     
+
+    member this.binaryList = List.sortBy (fun (x:TSpasport)-> x.Series+x.Number) list 
+    override this.searchDoc(obj) = 
+        binSearch this.binaryList obj
+
+
+
 [<EntryPoint>]
 let main argv =
     let p1 = TSpasport(Series="0316", Number="556677", Category='A', EnginePower=104.15, Mass=1375)
