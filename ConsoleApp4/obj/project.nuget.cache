@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "XaxTQE7mYjKVi9L1dyUh5oR7GqTBhFnUhfFNz4yBi7pMgSMvK0dm3ONDc+EIUvESL4+HeK51qJGkuLddU8XA3A==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\danek\\Desktop\\Лямбда\\Лабы\\F_labs\\ConsoleApp4\\1.fsproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\danek\\.nuget\\packages\\fsharp.core\\5.0.0\\fsharp.core.5.0.0.nupkg.sha512",
+    "C:\\Users\\danek\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\3.1.23\\microsoft.netcore.app.host.win-x64.3.1.23.nupkg.sha512"
+  ],
+  "logs": []
+}
