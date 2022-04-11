@@ -99,6 +99,46 @@ type BinaryListTS(list:'TSpasport list)=
 let main argv =
     let p1 = TSpasport(Series="0316", Number="556677", Category='A', EnginePower=104.15, Mass=1375)
     let p2 = TSpasport(Series="0666", Number="111111", Category='G', EnginePower=200.0, Mass=2000)
-    p1.Print()
-    Console.WriteLine(p1 > p2)
-    0 // return an integer exit code
+    
+    Console.WriteLine(p1>p2)
+
+    let random = System.Random()
+    let listOfP = [ for i in 1 .. 1000000 -> TSpasport(Series=Convert.ToString(random.Next(1000,9999)), Number=Convert.ToString(random.Next(100000,999999)), Category='A', EnginePower=104.15, Mass=1375) ]
+    
+    let Ap = ArrayTS(listOfP)
+    let Lp = ListTS(listOfP)
+    let Sp = SetTS(listOfP)
+    let BLp = BinaryListTS(listOfP)
+    let randomp = TSpasport(Series=Convert.ToString(random.Next(1000,9999)), Number=Convert.ToString(random.Next(100000,999999)), Category='A', EnginePower=104.15, Mass=1375)
+
+    let watch = new Stopwatch()
+    watch.Start()
+    Ap.searchDoc(randomp)
+    watch.Stop()
+    Console.WriteLine("Массив: {0}", watch.Elapsed)
+    watch.Restart()
+
+    let watch = new Stopwatch()
+    watch.Start()
+    Lp.searchDoc(randomp)
+    watch.Stop()
+    Console.WriteLine("Массив: {0}", watch.Elapsed)
+    watch.Restart()
+
+    let watch = new Stopwatch()
+    watch.Start()
+    Sp.searchDoc(randomp)
+    watch.Stop()
+    Console.WriteLine("Массив: {0}", watch.Elapsed)
+    watch.Restart()
+
+    let watch = new Stopwatch()
+    watch.Start()
+    BLp.searchDoc(randomp)
+    watch.Stop()
+    Console.WriteLine("Массив: {0}", watch.Elapsed)
+    watch.Restart()
+
+    Console.WriteLine("Наиболее эффективен класс Лист")
+
+    0
