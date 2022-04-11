@@ -1,27 +1,43 @@
 ﻿open System
 open System.Diagnostics
+open System.Text.RegularExpressions
 
-type TSpasport( s:string, n:string, c: char, e: float, m: int) =
-    let mutable number = n
-    let mutable series = s
-    let mutable category = c
-    let mutable enginePower = e
-    let mutable mass = m
+type TSpasport() =
+    let mutable number = ""
+    let mutable series = ""
+    let mutable category = ' '
+    let mutable enginePower = 0.0
+    let mutable mass = 0
     member this.Mass
         with get() = mass
-        and set(value) = mass <- value
+        and set(value:int) =
+            if (Regex.IsMatch (Convert.ToString(value), @"[0-9]+"))
+            then mass <- value
+            else Console.WriteLine("Ошибка формата ввода")
     member this.EnginePower
         with get() = enginePower
-        and set(value) = enginePower <- value
+        and set(value:float) = 
+            if (Regex.IsMatch (Convert.ToString(value), @"[0-9]+.[0-9]+"))
+            then enginePower <- value
+            else Console.WriteLine("Ошибка формата ввода")
     member this.Category
         with get() = category
-        and set(value) = category <- value
+        and set(value:char) =
+            if (Regex.IsMatch (Convert.ToString(value), @"(A|B|C|D|E)"))
+            then category <- value
+            else Console.WriteLine("Ошибка формата ввода")
     member this.Number
         with get() = number
-        and set(value) = number <- value
+        and set(value) =
+            if (Regex.IsMatch (value, @"[0-9]{6}"))
+            then number <- value
+            else Console.WriteLine("Ошибка формата ввода")
     member this.Series
         with get() = series
-        and set(value) = series <- value
+        and set(value) =
+            if (Regex.IsMatch (value, @"[0-9]{4}"))
+            then series <- value
+            else Console.WriteLine("Ошибка формата ввода")
     override this.ToString() = "Серия и номер: " + series + " "+ number + ", категория: "+ Convert.ToString(category) + ", мощность двигателя: "+ Convert.ToString(enginePower) + ", масса: "+ Convert.ToString(mass)
     member this.Print() = Console.WriteLine(this.ToString())
     override this.Equals(b) =
@@ -38,8 +54,8 @@ type TSpasport( s:string, n:string, c: char, e: float, m: int) =
 
 [<EntryPoint>]
 let main argv =
-    let p1 = TSpasport("0316", "556677", 'A', 104.15, 1375)
-    let p2 = TSpasport("0366", "111111", 'B', 200.00, 2375)
+    let p1 = TSpasport(Series="0316", Number="556677", Category='A', EnginePower=104.15, Mass=1375)
+    let p2 = TSpasport(Series="0666", Number="111111", Category='G', EnginePower=200.0, Mass=2000)
     p1.Print()
     Console.WriteLine(p1 > p2)
     0 // return an integer exit code
