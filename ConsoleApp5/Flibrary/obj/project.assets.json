@@ -51,6 +51,19 @@
             "locale": "zh-Hant"
           }
         }
+      },
+      "WinFormsApp1/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "compile": {
+          "bin/placeholder/WinFormsApp1.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/WinFormsApp1.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.WindowsDesktop.App.WindowsForms"
+        ]
       }
     }
   },
@@ -81,11 +94,17 @@
         "lib/netstandard2.0/zh-Hans/FSharp.Core.resources.dll",
         "lib/netstandard2.0/zh-Hant/FSharp.Core.resources.dll"
       ]
+    },
+    "WinFormsApp1/1.0.0": {
+      "type": "project",
+      "path": "../WinFormsApp1/WinFormsApp1.csproj",
+      "msbuildProject": "../WinFormsApp1/WinFormsApp1.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
-      "FSharp.Core >= 5.0.0"
+      "FSharp.Core >= 5.0.0",
+      "WinFormsApp1 >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -114,7 +133,11 @@
       "frameworks": {
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\danek\\Desktop\\Лямбда\\Лабы\\F_labs\\ConsoleApp5\\WinFormsApp1\\WinFormsApp1.csproj": {
+              "projectPath": "C:\\Users\\danek\\Desktop\\Лямбда\\Лабы\\F_labs\\ConsoleApp5\\WinFormsApp1\\WinFormsApp1.csproj"
+            }
+          }
         }
       }
     },
