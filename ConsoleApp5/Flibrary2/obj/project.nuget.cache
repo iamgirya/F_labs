@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "3+dqk1QGXy4GZwMCFQwGsqxg+hXxXddg5VlRQbs+h+U+/ZcwdRMTdWAi0+PSDeuX9T3aFouBnpzodTVN3p/IUg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\danek\\Desktop\\Лямбда\\Лабы\\F_labs\\ConsoleApp5\\Flibrary2\\Flibrary2.fsproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\danek\\.nuget\\packages\\fsharp.core\\5.0.0\\fsharp.core.5.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}
