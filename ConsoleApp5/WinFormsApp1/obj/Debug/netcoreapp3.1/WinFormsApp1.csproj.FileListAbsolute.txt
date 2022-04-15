@@ -1,0 +1,12 @@
+C:\Users\danek\Desktop\Лямбда\Лабы\F_labs\ConsoleApp5\WinFormsApp1\bin\Debug\netcoreapp3.1\WinFormsApp1.deps.json
+C:\Users\danek\Desktop\Лямбда\Лабы\F_labs\ConsoleApp5\WinFormsApp1\bin\Debug\netcoreapp3.1\WinFormsApp1.dll
+C:\Users\danek\Desktop\Лямбда\Лабы\F_labs\ConsoleApp5\WinFormsApp1\bin\Debug\netcoreapp3.1\WinFormsApp1.pdb
+C:\Users\danek\Desktop\Лямбда\Лабы\F_labs\ConsoleApp5\WinFormsApp1\obj\Debug\netcoreapp3.1\WinFormsApp1.csproj.AssemblyReference.cache
+C:\Users\danek\Desktop\Лямбда\Лабы\F_labs\ConsoleApp5\WinFormsApp1\obj\Debug\netcoreapp3.1\WinFormsApp1.Form1.resources
+C:\Users\danek\Desktop\Лямбда\Лабы\F_labs\ConsoleApp5\WinFormsApp1\obj\Debug\netcoreapp3.1\WinFormsApp1.csproj.GenerateResource.cache
+C:\Users\danek\Desktop\Лямбда\Лабы\F_labs\ConsoleApp5\WinFormsApp1\obj\Debug\netcoreapp3.1\WinFormsApp1.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\danek\Desktop\Лямбда\Лабы\F_labs\ConsoleApp5\WinFormsApp1\obj\Debug\netcoreapp3.1\WinFormsApp1.AssemblyInfoInputs.cache
+C:\Users\danek\Desktop\Лямбда\Лабы\F_labs\ConsoleApp5\WinFormsApp1\obj\Debug\netcoreapp3.1\WinFormsApp1.AssemblyInfo.cs
+C:\Users\danek\Desktop\Лямбда\Лабы\F_labs\ConsoleApp5\WinFormsApp1\obj\Debug\netcoreapp3.1\WinFormsApp1.csproj.CoreCompileInputs.cache
+C:\Users\danek\Desktop\Лямбда\Лабы\F_labs\ConsoleApp5\WinFormsApp1\obj\Debug\netcoreapp3.1\WinFormsApp1.dll
+C:\Users\danek\Desktop\Лямбда\Лабы\F_labs\ConsoleApp5\WinFormsApp1\obj\Debug\netcoreapp3.1\WinFormsApp1.pdb
