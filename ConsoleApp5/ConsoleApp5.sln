@@ -7,9 +7,11 @@ Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "Flibrary", "Flibrary\Flibra
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WinFormsApp1", "WinFormsApp1\WinFormsApp1.csproj", "{151C05F2-436E-4193-9851-DFDC3380AEF8}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Flibrary2", "Flibrary2\Flibrary2.fsproj", "{B66EA6C7-9FD4-4D03-BA22-DEC327CE947A}"
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "Flibrary2", "Flibrary2\Flibrary2.fsproj", "{B66EA6C7-9FD4-4D03-BA22-DEC327CE947A}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Flibrary3", "Flibrary3\Flibrary3.fsproj", "{8CC74C0F-A3B9-4F74-B150-0FAC4AED58D5}"
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "Flibrary3", "Flibrary3\Flibrary3.fsproj", "{8CC74C0F-A3B9-4F74-B150-0FAC4AED58D5}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Flibrary4", "Flibrary4\Flibrary4.fsproj", "{A5DE8649-4A0C-4065-AE3F-F290C2D38BA4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{8CC74C0F-A3B9-4F74-B150-0FAC4AED58D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8CC74C0F-A3B9-4F74-B150-0FAC4AED58D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8CC74C0F-A3B9-4F74-B150-0FAC4AED58D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5DE8649-4A0C-4065-AE3F-F290C2D38BA4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5DE8649-4A0C-4065-AE3F-F290C2D38BA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5DE8649-4A0C-4065-AE3F-F290C2D38BA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5DE8649-4A0C-4065-AE3F-F290C2D38BA4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
