@@ -103,7 +103,7 @@ let main argv =
     Console.WriteLine(p1>p2)
 
     let random = System.Random()
-    let listOfP = [ for i in 1 .. 1000000 -> TSpasport(Series=Convert.ToString(random.Next(1000,9999)), Number=Convert.ToString(random.Next(100000,999999)), Category='A', EnginePower=104.15, Mass=1375) ]
+    let listOfP = [ for i in 1 .. 100000 -> TSpasport(Series=Convert.ToString(random.Next(1000,9999)), Number=Convert.ToString(random.Next(100000,999999)), Category='A', EnginePower=104.15, Mass=1375) ]
     
     let Ap = ArrayTS(listOfP)
     let Lp = ListTS(listOfP)

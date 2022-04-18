@@ -23,7 +23,7 @@ xmlns='http://schemas.microsoft.com/winfx/2006/xaml/presentation'
   </GroupBox>
  
  <Grid>
-<TextBox Height = '50' TextWrapping='Wrap' AcceptsReturn='True' HorizontalAlignment = 'Left' IsReadOnly='True' Text = 'c' Margin = '6,0,0,0' Name = 'textBox4' Width = '250' Grid.ColumnSpan='2'  />
+<TextBox Height = '50' TextWrapping='Wrap' AcceptsReturn='True' HorizontalAlignment = 'Left' Text = '' Margin = '6,0,0,0' Name = 'textBox4' Width = '250' Grid.ColumnSpan='2'  />
  </Grid>
 
  </Grid>
